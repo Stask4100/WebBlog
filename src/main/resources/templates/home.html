@@ -1,14 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${title}"/>
+    <title th:text="${title}">Site Blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        .popular-post {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            height: 200px; /* Висота квадрата */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .popular-post-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 
+<h1 class="text-center">Top 3 posts!</h1>
 
-    <div th:insert="blocks/footer :: footer"></div>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Відображення трьох постів з ${popularPosts} -->
+        <div th:each="post, iterStat : ${popularPosts}" th:if="${iterStat.index < 3}" class="col-md-4">
+            <a th:href="'/blog/' + ${post.id}" class="popular-post">
+                <div class="popular-post-title" th:text="${post.title}"></div>
+                <div><b>Views:</b> <span th:text="${post.views}"></span></div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>
