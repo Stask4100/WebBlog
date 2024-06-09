@@ -29,7 +29,6 @@
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Відображення трьох постів з ${popularPosts} -->
         <div th:each="post, iterStat : ${popularPosts}" th:if="${iterStat.index < 3}" class="col-md-4">
             <a th:href="'/blog/' + ${post.id}" class="popular-post">
                 <div class="popular-post-title" th:text="${post.title}"></div>
