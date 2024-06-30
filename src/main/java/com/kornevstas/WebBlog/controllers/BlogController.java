@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -88,4 +89,13 @@ public class BlogController {
         return "redirect:/blog";
     }
 
+    @GetMapping("/blog/search")
+    public String searchPost(@RequestParam("query") String query, Model model){
+        //Use Method from PostRepository
+        List<Post> searchResults = postRepository.findByTitleContainingIgnoreCase(query);
+        //Add result in attribute model
+        model.addAttribute("posts", searchResults);
+        //Return name of Template
+        return "search-result";
+    }
 }

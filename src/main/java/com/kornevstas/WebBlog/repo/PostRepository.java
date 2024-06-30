@@ -12,4 +12,8 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p ORDER BY p.views DESC")
     List<Post> findTop3ByOrderByViewsDesc();
+
+    // Додаємо метод пошуку блогів за частковим збігом назви
+    @Query("SELECT p FROM Post p WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    List<Post> findByTitleContainingIgnoreCase(String title);
 }
